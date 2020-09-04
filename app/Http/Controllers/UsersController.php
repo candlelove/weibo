@@ -41,5 +41,12 @@ class UsersController extends Controller
         return redirect()->route('users.show',[$user]);
     }
 
+    public function destory()
+    {
+        Auth::logout();
+        seesion()->flash('successs','您已退出登录!');
+        return redirect('login');
+    }
+
 
 }
