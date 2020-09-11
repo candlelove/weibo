@@ -4,8 +4,9 @@
 
 use App\Model;
 use Faker\Generator as Faker;
+use App\Models\Status;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(App\Models\Status::class, function (Faker $faker) {
     $date_time = $faker->date . ' ' . $faker->time;
     return [
         'user_id'   => $faker->randomElement(['1','2','3']),
