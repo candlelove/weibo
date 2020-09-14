@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 
-use Auth;
-use Mail;
+// use Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+
+
+//use Illuminate\Support\Facades\Auth;
+
 
 class UsersController extends Controller
 {
@@ -35,7 +40,8 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()->orderBy('created_at','desc')->paginate(10);
+        return view('users.show', compact('user','statuses'));
     }
 
     public function store(Request $request)
@@ -115,7 +121,7 @@ class UsersController extends Controller
         $user->save();
 
         Auth::login($user);
-        $request->session()->flash('success', '恭喜你，激活成功！');
+        session()->flash('success', '恭喜你，激活成功！');
         return redirect()->route('users.show',[$user]);
     }
 
