@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class FollowersController extends Controller
 {
@@ -17,8 +17,8 @@ class FollowersController extends Controller
     {
         $this->authorize('follow', $user);
 
-        if ( ! auth()->user()->isFollowing($user->id)) {
-            auth()->user()->follow($user->id);
+        if ( ! Auth::user()->isFollowing($user->id)) {
+            Auth::user()->follow($user->id);
         }
 
         return redirect()->route('users.show', $user->id);
@@ -28,8 +28,8 @@ class FollowersController extends Controller
     {
         $this->authorize('follow', $user);
 
-        if (auth()->user()->isFollowing($user->id)) {
-            auth()->user()->unfollow($user->id);
+        if (Auth::user()->isFollowing($user->id)) {
+            Auth::user()->unfollow($user->id);
         }
 
         return redirect()->route('users.show', $user->id);
